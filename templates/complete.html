@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Transfer Information</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <center>
+        <nav class="navbar navbar-expand-lg bg-primary">
+            <a class="navbar-brand text-white" href="/">
+                Transfer Information
+            </a>
+        </nav>
+
+        <h1>Task Complete</h1>
+        <a type="button" href="/">
+            <button id="backButton" type="button" class="btn btn-primary">Back to the Homepage</button>
+        </a>
+
+    </center>
+    <script>
+        function download() {
+            new EventSource("/download");
+            window.open("/", "_self");
+        }
+    </script>
+</body>
+
+</html>

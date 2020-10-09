@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Transfer Information</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary">
+        <a class="navbar-brand text-white" href="/">
+            Transfer Information
+        </a>
+    </nav>
+
+
+    <label for="exampleFormControlFile1">Upload the csv file</label>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" class="btn btn-primary" value="Upload">
+    </form>
+    <hr> {% block exception %}{% endblock %} {% block processing %}{% endblock %}
+</body>
+
+</html>

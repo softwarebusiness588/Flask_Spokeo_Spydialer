@@ -1,0 +1,53 @@
+{% extends "index.html" %} {% block processing %}
+<div>
+    <button id="startButton" type="button" class="btn btn-primary" onclick="startProcessing()">Start {{image_name}}</button>
+    <h1 align="center">Scanning the Spokeo</h1>
+    <center>
+        <div class="progress" style="width: 50%; margin: 50px;">
+            <div class="progress-spokeo progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span class="progress-spokeo-label progress-bar-label">0%</span>
+            </div>
+        </div>
+    </center>
+    <h1 align="center">Scanning the Spydialer</h1>
+    <center>
+        <div class="progress" style="width: 50%; margin: 50px;">
+            <div class="progress-spydialer progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span class="progress-spydialer-label progress-bar-label">0%</span>
+            </div>
+        </div>
+    </center>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Processing Logs</label>
+        <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10"></textarea>
+    </div>
+
+    <!-- Scripts -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        function startProcessing() {
+            console.log("start processing")
+            var source = new EventSource("/progress");
+            source.onmessage = function(event) {
+                $('#startButton').prop('disabled', true);
+                console.log("event origin ", event.data)
+                var resData = JSON.parse(event.data);
+                console.log("event percent_spokeo ", resData.percent_spokeo);
+
+                $('.progress-spokeo').css('width', resData.percent_spokeo + '%').attr('aria-valuenow', resData.percent_spokeo);
+                $('.progress-spokeo-label').text(resData.percent_spokeo + '%');
+
+                $('.progress-spydialer').css('width', resData.percent_spydialer + '%').attr('aria-valuenow', resData.percent_spydialer);
+                $('.progress-spydialer-label').text(resData.percent_spydialer + '%');
+                document.getElementById('exampleFormControlTextarea1').value += "\n" + resData.info;
+                if (resData.percent_spydialer == 100) {
+                    source.close();
+                    $('#startButton').prop('disabled', false);
+                    window.open("/completed", "_self");
+                }
+            }
+        }
+    </script>
+</div>
+
+{% endblock %}
