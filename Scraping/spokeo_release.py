@@ -52,8 +52,8 @@ class SpokeoScraper:
     def __init__(self, kwargs):
         # todo add this in config file implemetation
         config = {
-            'login': 'brightstar217118@gmail.com',
-            'password': 'Notouch217',
+            'login': 'shawndewitte1@yahoo.com',
+            'password': 'Se321!@#',
             'db_schema': 'sqlite:///spokeo.db',
         }
         # config = configparser.ConfigParser()
